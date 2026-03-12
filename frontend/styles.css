@@ -1,0 +1,1686 @@
+/* ==========================================
+   Dark OLED Luxury - 技能管理工具样式
+   配色：纯黑背景 + 琥珀金强调色
+   字体：Inter (Google Fonts)
+   风格：极简、精致、专业
+   ========================================== */
+
+:root {
+    /* 背景色 - 纯黑系 */
+    --bg-primary: #000000;
+    --bg-secondary: #0a0a0a;
+    --bg-card: #1a1a1a;
+    --bg-card-hover: #222222;
+    
+    /* 强调色 - 琥珀金 */
+    --accent-primary: #fbbf24;
+    --accent-hover: #f59e0b;
+    --accent-dim: rgba(251, 191, 36, 0.1);
+    
+    /* 状态色 */
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    
+    /* 文字色 */
+    --text-primary: #ffffff;
+    --text-secondary: #888888;
+    --text-muted: #555555;
+    
+    /* 边框色 */
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-emphasis: rgba(255, 255, 255, 0.12);
+    
+    /* 阴影 */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.6);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.7);
+    --shadow-accent: 0 0 20px rgba(251, 191, 36, 0.15);
+    
+    /* 圆角 */
+    --radius: 8px;
+    
+    /* 过渡 */
+    --transition: 200ms ease-out;
+}
+
+/* ========================================== 
+   基础样式
+   ========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================== 
+   顶部导航栏
+   ========================================== */
+
+.header {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 1.25rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(20px);
+}
+
+.header-content {
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo-icon {
+    font-size: 1.75rem;
+    filter: drop-shadow(0 0 8px var(--accent-primary));
+}
+
+.logo h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.header-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-icon {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    border-radius: var(--radius);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    transition: all var(--transition);
+}
+
+.btn-icon:hover {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+}
+
+.btn-icon:active {
+    transform: scale(0.98);
+}
+
+.page-switcher {
+    position: sticky;
+    top: 90px;
+    z-index: 90;
+    padding: 1rem 2rem 0;
+    display: flex;
+    justify-content: center;
+    background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.98) 0%, rgba(0, 0, 0, 0.88) 70%, rgba(0, 0, 0, 0) 100%);
+}
+
+.page-switcher-inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0.45rem;
+    display: inline-flex;
+    gap: 0.5rem;
+    background: rgba(20, 20, 20, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(16px);
+}
+
+.page-tab {
+    min-width: 176px;
+    padding: 0.8rem 1.15rem;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    transition: background var(--transition), color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.page-tab:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.04);
+    transform: translateY(-1px);
+}
+
+.page-tab.active {
+    color: #fff8e1;
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.08));
+    box-shadow: inset 0 0 0 1px rgba(251, 191, 36, 0.25), 0 0 22px rgba(251, 191, 36, 0.12);
+}
+
+.page-tab-en {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+}
+
+.page-tab-cn {
+    font-size: 0.78rem;
+    color: inherit;
+    opacity: 0.8;
+}
+
+.page-views {
+    width: 100%;
+}
+
+.page-view {
+    width: 100%;
+}
+
+.page-view[hidden] {
+    display: none !important;
+}
+
+/* ========================================== 
+   主内容区域
+   ========================================== */
+
+.main-content {
+    max-width: 1600px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.agent-main-content {
+    max-width: 1600px;
+    min-height: calc(100vh - 260px);
+    margin: 2rem auto 0;
+    padding: 0 2rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.agent-placeholder-card {
+    width: min(720px, 100%);
+    min-height: 360px;
+    padding: 3rem 2rem;
+    border-radius: 28px;
+    border: 1px solid rgba(251, 191, 36, 0.16);
+    background:
+        radial-gradient(circle at top, rgba(251, 191, 36, 0.16), transparent 42%),
+        linear-gradient(180deg, rgba(18, 18, 18, 0.96), rgba(8, 8, 8, 0.98));
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    text-align: center;
+}
+
+.agent-placeholder-kicker {
+    padding: 0.38rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid rgba(251, 191, 36, 0.22);
+    background: rgba(251, 191, 36, 0.08);
+    color: var(--accent-primary);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+}
+
+.agent-placeholder-text {
+    font-size: clamp(1.5rem, 4vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    text-shadow: 0 0 24px rgba(251, 191, 36, 0.12);
+}
+
+/* ========================================== 
+   区块标题
+   ========================================== */
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    min-height: 44px;
+}
+
+.section-header h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+}
+
+.count-badge {
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    padding: 0.25rem 0.625rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid var(--border-subtle);
+}
+
+/* ========================================== 
+   搜索框
+   ========================================== */
+
+.search-box {
+    margin-left: auto;
+    position: relative;
+}
+
+.search-box input {
+    width: 240px;
+    height: 36px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 0 2.5rem 0 1rem;
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    transition: all var(--transition);
+}
+
+.search-box input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.search-icon {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* ========================================== 
+   卡片容器
+   ========================================== */
+
+.cards-container {
+    display: grid;
+    /* 默认单列，工具列表使用 */
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+/* 技能库：响应式2-3列展示 */
+#skillsContainer.cards-container {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+}
+
+/* ========================================== 
+   工具卡片
+   ========================================== */
+
+.tool-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.tool-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-emphasis);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.tool-card.selected {
+    border-color: var(--accent-primary);
+    box-shadow: var(--shadow-accent);
+}
+
+.tool-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+}
+
+.tool-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+}
+
+.tool-status {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 8px var(--success);
+}
+
+.tool-path {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+}
+
+.tool-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.tool-method {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+}
+
+.tool-skills-count {
+    font-size: 0.75rem;
+    color: var(--accent-primary);
+    font-weight: 500;
+}
+
+/* ========================================== 
+   技能卡片
+   ========================================== */
+
+.skill-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.skill-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-emphasis);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.skill-card.selected {
+    border-color: var(--accent-primary);
+    box-shadow: var(--shadow-accent);
+}
+
+.skill-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.skill-name {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+}
+
+.skill-source {
+    font-size: 0.6875rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-subtle);
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+}
+
+.skill-description {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+}
+
+.skill-path {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    /* 超长路径省略显示 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: default;
+}
+
+/* ========================================== 
+   分发配置面板
+   ========================================== */
+
+.distribution-panel {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-subtle);
+    padding: 1.5rem 0;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    backdrop-filter: blur(20px);
+}
+
+.panel-content {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.panel-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.panel-section.flex-grow {
+    flex: 1;
+}
+
+.panel-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.selected-count {
+    background: var(--accent-primary);
+    color: var(--bg-primary);
+    padding: 0.125rem 0.5rem;
+    border-radius: 10px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+}
+
+/* ========================================== 
+   选择框
+   ========================================== */
+
+.select-input {
+    width: 240px;
+    height: 40px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 0 1rem;
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.select-input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.select-input option {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+/* ========================================== 
+   已选技能
+   ========================================== */
+
+.selected-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    min-height: 40px;
+    align-items: center;
+}
+
+.empty-hint {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.selected-skill-tag {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8125rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all var(--transition);
+}
+
+.selected-skill-tag:hover {
+    border-color: var(--accent-primary);
+}
+
+.remove-skill {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0;
+    transition: color var(--transition);
+}
+
+.remove-skill:hover {
+    color: var(--danger);
+}
+
+/* ========================================== 
+   分发方式按钮
+   ========================================== */
+
+.distribution-methods {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.method-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 0.625rem 1rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    font-family: inherit;
+    transition: all var(--transition);
+}
+
+.method-btn:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-emphasis);
+    color: var(--text-primary);
+}
+
+.method-btn.active {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    color: var(--bg-primary);
+    font-weight: 600;
+}
+
+.method-icon {
+    font-size: 1rem;
+}
+
+.system-recommendation {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+}
+
+/* ========================================== 
+   清理选项
+   ========================================== */
+
+.cleanup-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color var(--transition);
+}
+
+.checkbox-label:hover {
+    color: var(--text-primary);
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    background: var(--bg-card);
+    cursor: pointer;
+    appearance: none;
+    position: relative;
+    transition: all var(--transition);
+}
+
+.checkbox-label input[type="checkbox"]:checked {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+
+.checkbox-label input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--bg-primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.checkbox-label input[type="checkbox"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+/* ========================================== 
+   操作按钮
+   ========================================== */
+
+.panel-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.btn {
+    height: 40px;
+    padding: 0 1.5rem;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all var(--transition);
+    white-space: nowrap;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background: var(--accent-primary);
+    color: var(--bg-primary);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: var(--accent-hover);
+    box-shadow: var(--shadow-accent);
+}
+
+.btn-primary:disabled {
+    background: var(--bg-card);
+    color: var(--text-muted);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.btn-secondary {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-subtle);
+}
+
+.btn-secondary:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-emphasis);
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: var(--text-primary);
+}
+
+.btn-danger:hover {
+    background: #dc2626;
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+}
+
+/* ========================================== 
+   模态框
+   ========================================== */
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    max-width: 600px;
+    width: 100%;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius);
+    transition: all var(--transition);
+}
+
+.modal-close:hover {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.modal-footer {
+    padding: 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+/* ========================================== 
+   预览内容
+   ========================================== */
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-family: inherit;
+    transition: all var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.form-group input::placeholder {
+    color: var(--text-muted);
+}
+
+.form-group small {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.tool-skills {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.tool-skills-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.tool-skills-header span {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.tool-skills-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.35rem 0.5rem;
+}
+
+.skill-tag {
+    display: block;
+    padding: 0.25rem 0.6rem;
+    background: var(--accent-dim);
+    color: var(--accent-primary);
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 工具技能行：勾选框 + tag + 删除按钮 */
+.skill-tag-row {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.2rem 0.3rem 0.2rem 0.2rem;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    transition: border-color var(--transition), background var(--transition);
+    cursor: default;
+}
+
+.skill-tag-row:hover {
+    border-color: var(--border-emphasis);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* 勾选后高亮整行 */
+.skill-tag-row.is-checked {
+    border-color: rgba(239, 68, 68, 0.35);
+    background: rgba(239, 68, 68, 0.06);
+}
+
+.skill-tag-check-label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    flex: 1;
+    min-width: 0;
+}
+
+/* 隐藏原生 checkbox，用自定义样式 */
+.skill-tag-check-label input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid var(--border-emphasis);
+    border-radius: 4px;
+    cursor: pointer;
+    flex-shrink: 0;
+    position: relative;
+    transition: border-color var(--transition), background var(--transition), box-shadow var(--transition);
+    background: transparent;
+}
+
+.skill-tag-check-label input[type="checkbox"]:hover {
+    border-color: var(--danger);
+}
+
+.skill-tag-check-label input[type="checkbox"]:checked {
+    background: var(--danger);
+    border-color: var(--danger);
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
+}
+
+.skill-tag-check-label input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 1px;
+    width: 5px;
+    height: 8px;
+    border: 1.5px solid #fff;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+}
+
+.skill-tag-check-label input[type="checkbox"]:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+/* 单个删除按钮：平时隐藏，hover 行时滑入 */
+.tool-skill-del-btn {
+    opacity: 0;
+    transform: scale(0.7) translateX(4px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.15rem 0.3rem;
+    border-radius: 6px;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.skill-tag-row:hover .tool-skill-del-btn {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+}
+
+.tool-skill-del-btn:hover {
+    color: var(--danger);
+    background: rgba(239, 68, 68, 0.12);
+}
+
+.tool-skill-del-btn:active {
+    transform: scale(0.9);
+}
+
+/* 批量删除按钮 — 精致胶囊样式 */
+.tool-skill-batch-del-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--danger);
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background var(--transition), border-color var(--transition),
+                box-shadow var(--transition), transform var(--transition);
+    white-space: nowrap;
+}
+
+.tool-skill-batch-del-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.6);
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.25);
+    transform: translateY(-1px);
+}
+
+.tool-skill-batch-del-btn:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: none;
+}
+
+/* 批量删除按钮出现动画 */
+@keyframes batchBtnIn {
+    from { opacity: 0; transform: scale(0.8) translateX(6px); }
+    to   { opacity: 1; transform: scale(1) translateX(0); }
+}
+
+.tool-skill-batch-del-btn[style*="inline-flex"] {
+    animation: batchBtnIn 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* 删除图标 SVG 替代 emoji */
+.del-icon {
+    width: 11px;
+    height: 11px;
+    flex-shrink: 0;
+}
+
+.empty-state {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+/* ========================================== 
+   预览内容
+   ========================================== */
+
+.preview-section {
+    margin-bottom: 1.5rem;
+}
+
+.preview-section:last-child {
+    margin-bottom: 0;
+}
+
+.preview-section h4 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+}
+
+.preview-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.preview-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 0.75rem;
+    font-size: 0.8125rem;
+    color: var(--text-primary);
+}
+
+.preview-item-path {
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+/* ========================================== 
+   Toast 通知
+   ========================================== */
+
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    box-shadow: var(--shadow-lg);
+    transform: translateY(150%);
+    transition: transform 0.3s ease-out;
+    z-index: 2000;
+    max-width: 400px;
+}
+
+.toast.show {
+    transform: translateY(0);
+}
+
+.toast-icon {
+    font-size: 1.25rem;
+}
+
+.toast-message {
+    font-size: 0.875rem;
+    color: var(--text-primary);
+}
+
+.toast.success {
+    border-color: var(--success);
+}
+
+.toast.error {
+    border-color: var(--danger);
+}
+
+.toast.warning {
+    border-color: var(--warning);
+}
+
+/* ========================================== 
+   响应式设计
+   ========================================== */
+
+@media (max-width: 1200px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .panel-content {
+        flex-wrap: wrap;
+    }
+    
+    .panel-section {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 1rem;
+    }
+
+    .page-switcher {
+        top: 73px;
+        padding: 0.85rem 1rem 0;
+    }
+
+    .page-switcher-inner {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .page-tab {
+        min-width: 0;
+        padding: 0.75rem 0.9rem;
+        gap: 0.5rem;
+    }
+
+    .main-content {
+        padding: 0 1rem;
+        margin: 1rem auto;
+    }
+
+    .agent-main-content {
+        min-height: calc(100vh - 220px);
+        padding: 0 1rem 1.5rem;
+        margin: 1rem auto 0;
+    }
+
+    .agent-placeholder-card {
+        min-height: 280px;
+        padding: 2rem 1.25rem;
+    }
+
+    .distribution-panel {
+        padding: 1rem 0;
+    }
+
+    .panel-content {
+        padding: 0 1rem;
+    }
+
+    .search-box input {
+        width: 180px;
+    }
+
+    .distribution-methods {
+        flex-wrap: wrap;
+    }
+
+    .method-btn {
+        flex: 1;
+        min-width: 90px;
+    }
+
+    .panel-actions {
+        width: 100%;
+        justify-content: stretch;
+    }
+
+    .btn {
+        flex: 1;
+    }
+}
+
+/* ========================================== 
+   无障碍支持
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* 焦点可见性 */
+:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+    :root {
+        --border-subtle: rgba(255, 255, 255, 0.2);
+        --border-emphasis: rgba(255, 255, 255, 0.4);
+    }
+}
+
+/* ========================================== 
+   删除按钮样式
+   ========================================== */
+
+.btn-icon-small {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 0.25rem 0.5rem;
+    opacity: 0.5;
+    transition: all var(--transition);
+    border-radius: 4px;
+}
+
+.btn-icon-small:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.delete-btn:hover {
+    transform: scale(1.1);
+    color: var(--danger);
+}
+
+/* ==========================================
+   添加工具按钮 — section header 专属，与页面风格统一
+   ========================================== */
+
+.btn-add-tool {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    height: 36px;
+    padding: 0 1rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    font-family: inherit;
+    letter-spacing: 0.01em;
+    color: var(--text-secondary);
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color var(--transition),
+                border-color var(--transition),
+                background var(--transition),
+                box-shadow var(--transition),
+                transform var(--transition);
+}
+
+.btn-add-tool svg {
+    opacity: 0.6;
+    transition: opacity var(--transition), stroke var(--transition);
+}
+
+.btn-add-tool:hover {
+    color: var(--accent-primary);
+    background: var(--bg-card-hover);
+    border-color: rgba(251, 191, 36, 0.4);
+    box-shadow: 0 0 12px rgba(251, 191, 36, 0.1);
+    transform: translateY(-1px);
+}
+
+.btn-add-tool:hover svg {
+    opacity: 1;
+    stroke: var(--accent-primary);
+}
+
+.btn-add-tool:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: none;
+}
+
+.btn-add-tool:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+.tool-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.tool-header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    cursor: pointer;
+}
+
+
+/* ==========================================
+   Agent 页面布局
+   ========================================== */
+
+/* 覆盖占位样式：Agent 页面使用左右分栏，与 Skills 一致 */
+#agentPageView .agent-main-content {
+    max-width: 1600px;
+    min-height: unset;
+    margin: 2rem auto 0;
+    padding: 0 2rem 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+    justify-content: unset;
+}
+
+.agent-tools-section,
+.agent-library-section {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================
+   Agent 工具卡片
+   ========================================== */
+
+.agent-tool-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    transition: all var(--transition);
+    cursor: default;
+}
+
+.agent-tool-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-emphasis);
+}
+
+.agent-tool-card.selected {
+    border-color: var(--accent-primary);
+    box-shadow: var(--shadow-accent);
+}
+
+.agent-tool-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* 复选框：复用 skill-tag-check-label 风格 */
+.agent-tool-check-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.agent-tool-check-label input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    border: 1.5px solid var(--border-emphasis);
+    border-radius: 4px;
+    cursor: pointer;
+    flex-shrink: 0;
+    position: relative;
+    transition: border-color var(--transition), background var(--transition);
+    background: transparent;
+}
+
+.agent-tool-check-label input[type="checkbox"]:hover:not(:disabled) {
+    border-color: var(--accent-primary);
+}
+
+.agent-tool-check-label input[type="checkbox"]:checked {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+}
+
+.agent-tool-check-label input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 1px;
+    width: 5px;
+    height: 8px;
+    border: 1.5px solid var(--bg-primary);
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+}
+
+.agent-tool-check-label input[type="checkbox"]:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* 文件信息行 */
+.agent-tool-fileinfo {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+}
+
+/* 软链接目标路径 */
+.agent-tool-symlink-target {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    opacity: 0.75;
+}
+
+/* ==========================================
+   Agent 状态标签
+   ========================================== */
+
+.agent-status-badge {
+    font-size: 0.68rem;
+    font-weight: 600;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+}
+
+.agent-status-none {
+    background: rgba(85, 85, 85, 0.2);
+    color: var(--text-muted);
+    border: 1px solid rgba(85, 85, 85, 0.3);
+}
+
+.agent-status-exists {
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--success);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.agent-status-symlink {
+    background: rgba(251, 191, 36, 0.1);
+    color: var(--accent-primary);
+    border: 1px solid rgba(251, 191, 36, 0.25);
+}
+
+/* ==========================================
+   Agent 库文件卡片
+   ========================================== */
+
+.agent-file-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.agent-file-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-emphasis);
+    transform: translateY(-1px);
+}
+
+.agent-file-card.selected {
+    border-color: var(--accent-primary);
+    box-shadow: var(--shadow-accent);
+    background: rgba(251, 191, 36, 0.05);
+}
+
+.agent-file-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+}
+
+.agent-file-size {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+/* ==========================================
+   Agent 分发面板
+   ========================================== */
+
+.agent-distribution-panel {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-subtle);
+    padding: 1.25rem 0;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    backdrop-filter: blur(20px);
+}
+
+/* 各区块等高拉伸，操作按钮贴底对齐分发方式按钮 */
+.agent-distribution-panel .panel-content {
+    align-items: stretch;
+}
+
+.agent-distribution-panel .panel-actions {
+    align-self: flex-end;
+}
+
+/* 目标工具标签组 */
+.agent-target-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    min-height: 40px;
+    align-items: center;
+}
+
+/* ==========================================
+   响应式：Agent 页面
+   ========================================== */
+
+@media (max-width: 1200px) {
+    #agentPageView .agent-main-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    #agentPageView .agent-main-content {
+        padding: 0 1rem 1rem;
+        margin: 1rem auto 0;
+    }
+}

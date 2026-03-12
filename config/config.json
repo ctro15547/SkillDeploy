@@ -1,0 +1,38 @@
+{
+  "master_skills_dir": "skills-library",
+  "tools": [
+    {
+      "id": "opencode",
+      "name": "OpenCode",
+      "skills_dir": "~/.config/opencode/skills",
+      "enabled": true,
+      "distribute_method": "copy",
+      "agent_path": "~/.config/opencode/AGENT.md"
+    },
+    {
+      "id": "claude",
+      "name": "Claude",
+      "skills_dir": "~/.claude/skills",
+      "enabled": true,
+      "distribute_method": "symlink",
+      "agent_path": "~/.claude/AGENT.md"
+    },
+    {
+      "id": "kiro",
+      "name": "Kiro",
+      "skills_dir": "~/.kiro/skills",
+      "enabled": true,
+      "distribute_method": "copy",
+      "agent_path": "~/.kiro/steering/AGENT.md"
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "skills_dir": "~/.cursor/skills-cursor",
+      "enabled": true,
+      "distribute_method": "copy",
+      "agent_path": "~/.cursor/rules/AGENT.md"
+    }
+  ],
+  "agent_library_dir": "agent-library"
+}

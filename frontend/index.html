@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技能管理工具 - Skill Distribution Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <h1>技能管理工具</h1>
+            </div>
+            <div class="header-actions">
+                <button class="btn-icon" id="refreshBtn" title="刷新数据" aria-label="刷新数据">
+                    <span>🔄</span>
+                </button>
+                <button class="btn-icon" id="settingsBtn" title="设置" aria-label="设置">
+                    <span>⚙️</span>
+                </button>
+                <button class="btn-icon" id="helpBtn" title="帮助" aria-label="帮助">
+                    <span>❓</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <nav class="page-switcher" aria-label="页面切换">
+        <div class="page-switcher-inner" role="tablist" aria-label="功能页面">
+            <button
+                class="page-tab active"
+                id="skillsPageTab"
+                type="button"
+                role="tab"
+                aria-selected="true"
+                aria-controls="skillsPageView"
+                data-page="skills"
+            >
+                <span class="page-tab-en">SKILLS</span>
+                <span class="page-tab-cn">技能管理</span>
+            </button>
+            <button
+                class="page-tab"
+                id="agentPageTab"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                aria-controls="agentPageView"
+                data-page="agent"
+            >
+                <span class="page-tab-en">AGENT</span>
+                <span class="page-tab-cn">智能体中心</span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="page-views">
+        <section class="page-view active" id="skillsPageView" role="tabpanel" aria-labelledby="skillsPageTab">
+            <!-- 主内容区域 -->
+            <main class="main-content" id="skillsMainContent">
+                <!-- 左侧：工具列表 -->
+                <section class="tools-section">
+                    <div class="section-header">
+                        <h2>工具列表</h2>
+                        <span class="count-badge" id="toolsCount">0</span>
+                        <button class="btn-add-tool" id="addToolBtn">
+                            <svg width="13" height="13" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                            添加工具
+                        </button>
+                    </div>
+                    <div class="cards-container" id="toolsContainer">
+                        <!-- 工具卡片将通过JS动态生成 -->
+                    </div>
+                </section>
+
+                <!-- 右侧：技能库 -->
+                <section class="skills-section">
+                    <div class="section-header">
+                        <h2>技能库</h2>
+                        <span class="count-badge" id="skillsCount">0</span>
+                        <div class="search-box">
+                            <input type="text" id="skillSearch" placeholder="搜索技能..." aria-label="搜索技能" />
+                            <span class="search-icon">🔍</span>
+                        </div>
+                    </div>
+                    <div class="cards-container" id="skillsContainer">
+                        <!-- 技能卡片将通过JS动态生成 -->
+                    </div>
+                </section>
+            </main>
+        </section>
+
+        <section class="page-view" id="agentPageView" role="tabpanel" aria-labelledby="agentPageTab" hidden>
+            <main class="agent-main-content" id="agentMainContent">
+                <!-- 左侧：工具列表 -->
+                <section class="agent-tools-section">
+                    <div class="section-header">
+                        <h2>工具列表</h2>
+                        <span class="count-badge" id="agentToolsCount">0</span>
+                        <button class="btn-add-tool" id="agentAddToolBtn" style="margin-left:auto;">
+                            <svg width="13" height="13" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                            添加工具
+                        </button>
+                        <button class="btn-icon-small delete-btn" id="agentDeleteSelectedBtn"
+                            style="display:none;"
+                            title="删除选中工具的 AGENT.md"
+                            aria-label="删除选中工具的 AGENT.md">
+                            <svg width="13" height="13" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                                <polyline points="1,3 11,3"/><path d="M2,3l.7,7.3a1,1,0,0,0,1,.7H8.3a1,1,0,0,0,1-.7L10,3"/>
+                                <line x1="4.5" y1="5.5" x2="4.5" y2="9"/><line x1="7.5" y1="5.5" x2="7.5" y2="9"/>
+                                <path d="M4,3V2a1,1,0,0,1,1-1H7a1,1,0,0,1,1,1V3"/>
+                            </svg>
+                            删除选中
+                        </button>
+                    </div>
+                    <div class="cards-container" id="agentToolsContainer">
+                        <!-- 工具 Agent 状态卡片由 JS 动态生成 -->
+                    </div>
+                </section>
+
+                <!-- 右侧：Agent 库 -->
+                <section class="agent-library-section">
+                    <div class="section-header">
+                        <h2>Agent 库</h2>
+                        <span class="count-badge" id="agentLibraryCount">0</span>
+                    </div>
+                    <div class="cards-container" id="agentLibraryContainer">
+                        <!-- Agent 文件列表由 JS 动态生成 -->
+                    </div>
+                </section>
+            </main>
+
+            <!-- Agent 分发面板 -->
+            <footer class="agent-distribution-panel" id="agentDistributionPanel">
+                <div class="panel-content">
+                    <!-- 目标工具 -->
+                    <div class="panel-section">
+                        <label class="panel-label" for="agentTargetTools">目标工具</label>
+                        <div class="agent-target-tools" id="agentTargetToolsDisplay">
+                            <span class="empty-hint">未选择工具</span>
+                        </div>
+                    </div>
+
+                    <!-- 已选 Agent 文件 -->
+                    <div class="panel-section flex-grow">
+                        <label class="panel-label">
+                            已选文件
+                            <span class="selected-count" id="agentSelectedCount">0</span>
+                        </label>
+                        <div class="selected-skills" id="agentSelectedFiles">
+                            <span class="empty-hint">未选择 Agent 文件</span>
+                        </div>
+                    </div>
+
+                    <!-- 分发方式 -->
+                    <div class="panel-section">
+                        <label class="panel-label">分发方式</label>
+                        <div class="distribution-methods" id="agentDistributionMethods">
+                            <button class="method-btn" data-method="auto" aria-pressed="false">
+                                <span class="method-icon">⚡</span>
+                                <span class="method-text">智能检测</span>
+                            </button>
+                            <button class="method-btn" data-method="symlink" aria-pressed="false">
+                                <span class="method-icon">🔗</span>
+                                <span class="method-text">软链接</span>
+                            </button>
+                            <button class="method-btn active" data-method="copy" aria-pressed="true">
+                                <span class="method-icon">📋</span>
+                                <span class="method-text">拷贝</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 操作按钮 -->
+                    <div class="panel-actions">
+                        <button class="btn btn-secondary" id="agentCancelBtn">取消</button>
+                        <button class="btn btn-primary" id="agentExecuteBtn" disabled>执行分发</button>
+                    </div>
+                </div>
+            </footer>
+        </section>
+    </div>
+
+    <!-- 底部：分发配置面板 -->
+    <footer class="distribution-panel" id="distributionPanel">
+        <div class="panel-content">
+            <!-- 选择的工具 -->
+            <div class="panel-section">
+                <label class="panel-label" for="targetTool">目标工具</label>
+                <select id="targetTool" class="select-input">
+                    <option value="">请选择工具...</option>
+                </select>
+            </div>
+
+            <!-- 已选技能 -->
+            <div class="panel-section flex-grow">
+                <label class="panel-label">
+                    已选技能
+                    <span class="selected-count" id="selectedCount">0</span>
+                </label>
+                <div class="selected-skills" id="selectedSkills">
+                    <span class="empty-hint">未选择任何技能</span>
+                </div>
+            </div>
+
+            <!-- 分发方式 -->
+            <div class="panel-section">
+                <label class="panel-label">分发方式</label>
+                <div class="distribution-methods">
+                    <button class="method-btn" data-method="auto" aria-pressed="false">
+                        <span class="method-icon">⚡</span>
+                        <span class="method-text">智能检测</span>
+                    </button>
+                    <button class="method-btn" data-method="symlink" aria-pressed="false">
+                        <span class="method-icon">🔗</span>
+                        <span class="method-text">软链接</span>
+                    </button>
+                    <button class="method-btn active" data-method="copy" aria-pressed="true">
+                        <span class="method-icon">📋</span>
+                        <span class="method-text">拷贝</span>
+                    </button>
+                </div>
+                <div class="system-recommendation" id="systemRecommendation">
+                    系统推荐: 软链接
+                </div>
+            </div>
+
+            <!-- 清理选项 -->
+            <div class="panel-section">
+                <label class="panel-label">清理选项</label>
+                <div class="cleanup-options">
+                    <label class="checkbox-label" style="opacity:0.35;cursor:not-allowed;">
+                        <input type="checkbox" id="cleanBrokenLinks" disabled />
+                        <span>清理失效软链接</span>
+                    </label>
+                    <label class="checkbox-label" style="opacity:0.35;cursor:not-allowed;">
+                        <input type="checkbox" id="cleanUnused" disabled />
+                        <span>清理未使用技能</span>
+                    </label>
+                    <label class="checkbox-label" style="opacity:0.35;cursor:not-allowed;">
+                        <input type="checkbox" id="backupExisting" disabled />
+                        <span>备份现有文件</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="panel-actions">
+                <button class="btn btn-secondary" id="cancelBtn">取消</button>
+                <button class="btn btn-secondary" id="previewBtn">预览</button>
+                <button class="btn btn-primary" id="executeBtn" disabled>执行分发</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 模态框：预览 -->
+    <div class="modal" id="previewModal" role="dialog" aria-labelledby="previewTitle" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="previewTitle">分发预览</h3>
+                <button class="modal-close" id="closePreview" aria-label="关闭">&times;</button>
+            </div>
+            <div class="modal-body" id="previewContent">
+                <!-- 预览内容将通过JS生成 -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelPreview">取消</button>
+                <button class="btn btn-primary" id="confirmExecute">确认执行</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模态框：清理预览 -->
+    <div class="modal" id="cleanupModal" role="dialog" aria-labelledby="cleanupTitle" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="cleanupTitle">清理预览</h3>
+                <button class="modal-close" id="closeCleanup" aria-label="关闭">&times;</button>
+            </div>
+            <div class="modal-body" id="cleanupContent">
+                <!-- 清理预览内容将通过JS生成 -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelCleanup">取消</button>
+                <button class="btn btn-danger" id="confirmCleanup">确认清理</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模态框：添加工具 -->
+    <div class="modal" id="addToolModal" role="dialog" aria-labelledby="addToolTitle" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="addToolTitle">添加新工具</h3>
+                <button class="modal-close" id="closeAddTool" aria-label="关闭">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addToolForm">
+                    <div class="form-group">
+                        <label for="toolName">工具名称</label>
+                        <input type="text" id="toolName" name="name" required placeholder="例如：OpenCode">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="toolSkillsDir">技能目录路径</label>
+                        <input type="text" id="toolSkillsDir" name="skills_dir" required placeholder="例如：~/.config/opencode/skills">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="toolAgentPath">Agent 文件路径 <span style="opacity:0.5;font-size:0.85em;">（可选）</span></label>
+                        <input type="text" id="toolAgentPath" name="agent_path" placeholder="例如：~/.config/opencode/AGENT.md">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="toolDistributeMethod">分发方式</label>
+                        <select id="toolDistributeMethod" name="distribute_method">
+                            <option value="copy">拷贝</option>
+                            <option value="auto">智能检测</option>
+                            <option value="symlink">软链接</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelAddTool">取消</button>
+                <button class="btn btn-primary" id="confirmAddTool">添加</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast 通知 -->
+    <div class="toast" id="toast">
+        <span class="toast-icon"></span>
+        <span class="toast-message" id="toastMessage"></span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
